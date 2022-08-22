@@ -1,0 +1,14 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - cd src/cat
+    - make
+    - cd ../grep
+    - make
+  artifacts:
+    paths:
+      - src/
+    expire_in: 30 days

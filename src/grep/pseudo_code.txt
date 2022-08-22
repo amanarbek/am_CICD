@@ -1,0 +1,79 @@
+int
+-----------------------------------------------------------
+grep
+ Сначала распарсить флаги. Применить getopt
+Работа с флагами
+-----------------------------------------------------------
+ -e Позволяет указать несколько шаблонов для поиска
+    выводит строку целиком, где найдено совпадение.
+    grep -e is -e It -e to test
+    ---------------
+    This is a sample text file. It contains
+    It supports numbers like 1, 2, 3 etc. as well as
+    This is a sample text file. It's repeated two times.
+-----------------------------------------------------------
+ - i Игнорирует различия регистра
+    выводит строку целиком, где найдено совпадение.
+    grep -i it  test
+    ---------------
+    This is a sample text file. It contains
+    functionality. You can always use grep with any
+    kind of data but it works best with text data.
+    It supports numbers like 1, 2, 3 etc. as well as
+    This is a sample text file. It's repeated two times.
+-----------------------------------------------------------
+ - v Инвертирует смысл поиска соответствий
+    выводит строку целиком, где нет искомого.
+    grep -v This test
+    ---------------
+    functionality. You can always use grep with any
+    kind of data but it works best with text data.
+    It supports numbers like 1, 2, 3 etc. as well as
+-----------------------------------------------------------
+ - c Выводит только количество совпадающих строк,
+    где найден паттерн.
+    grep -c is test
+    ---------------
+    2
+-----------------------------------------------------------
+ -l Напечатает только имя файлов, в которых найден шаблон
+    grep -l s *
+    ---------------
+    cpplint.py
+    makefile
+    pseudo_code.txt
+    test
+-----------------------------------------------------------
+ -n Предваряет каждую строку вывода номером строки из
+    файла ввода.
+    grep -n is test 
+---------------
+    1:This is a sample text file. It contains
+    5: This is a sample text file. It's repeated two times.
+-----------------------------------------------------------
+ -h Выводит совпадающие строки, не предваряя их именами 
+    файлов.
+    grep -h is test
+---------------
+    This is a sample text file. It contains
+    This is a sample text file. It's repeated two times.
+-----------------------------------------------------------
+ -s Подавляет сообщения об ошибках о несуществующих 
+    или нечитаемых файлах.
+    grep -s is q // такого файла не существует, ошибки нет.
+    grep is q // вывело ошибку, файл не существует.
+---------------
+    grep: q: No such file or directory
+-----------------------------------------------------------
+ -f file Получает регулярные выражения из файла.
+ 
+---------------
+-----------------------------------------------------------
+ -o Печатает только совпадающие (непустые) части
+    совпавшей строки.
+    grep -o is test 
+---------------
+    is
+    is      // вывел все is которые есть
+    is      // есть в файле.
+    is
