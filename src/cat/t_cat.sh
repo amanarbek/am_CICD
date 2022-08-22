@@ -105,3 +105,6 @@ done
 
 echo "SUCCESS: $COUNTER_SUCCESS"
 echo "FAIL: $COUNTER_FAIL"
+if [ $COUNTER_FAIL -gt 0 ]; then
+  exit 1
+fi

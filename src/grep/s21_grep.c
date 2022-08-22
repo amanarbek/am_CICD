@@ -206,10 +206,19 @@ int compare(union bitmask* options, char* pbuf_out, size_t* size_buf_out,
         snprintf(pbuf_out + *size_buf_out, len + 2, "%s:", argv[optind - 1]);
   }
   if ((options->bytes.n) && !(options->bytes.c)) {
-    if (i > 0)
-      *size_buf_out += sprintf(pbuf_out + *size_buf_out, "%zu:", *line_num - 1);
-    else
-      *size_buf_out += sprintf(pbuf_out + *size_buf_out, "%zu:", (*line_num)++);
+    size_t len = 1;
+    size_t copy_line = *line_num;
+    while (copy_line >= 10) {
+      len++;
+      copy_line = copy_line / 10;
+    }
+    if (i > 0) {
+      snprintf(pbuf_out + *size_buf_out, len + 2, "%zu:", *line_num - 1);
+      *size_buf_out += len + 1;
+    } else {
+      snprintf(pbuf_out + *size_buf_out, len + 2, "%zu:", (*line_num)++);
+      *size_buf_out += len + 1;
+    }
   }
   return result;
 }

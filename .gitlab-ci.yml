@@ -1,5 +1,6 @@
 stages:
   - build
+  - codestyle
 
 build-job:
   stage: build
@@ -12,3 +13,9 @@ build-job:
     paths:
       - src/
     expire_in: 30 days
+
+codestyle-job:
+  stage: codestyle
+  script:
+    - python3 materials/linters/cpplint.py --extensions=c src/cat/s21_cat.c
+    - python3 materials/linters/cpplint.py --extensions=c src/grep/s21_grep.c
