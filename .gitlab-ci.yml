@@ -1,6 +1,7 @@
 stages:
   - build
   - codestyle
+  - integration_tests
 
 build-job:
   stage: build
@@ -11,7 +12,8 @@ build-job:
     - make
   artifacts:
     paths:
-      - src/
+      - src/cat/s21_cat
+      - src/grep/s21_grep
     expire_in: 30 days
 
 codestyle-job:
@@ -19,3 +21,11 @@ codestyle-job:
   script:
     - python3 materials/linters/cpplint.py --extensions=c src/cat/s21_cat.c
     - python3 materials/linters/cpplint.py --extensions=c src/grep/s21_grep.c
+
+integration_tests-job:
+  stage: integration_tests
+  script:
+    - cd src/cat
+    - make test
+    - cd ../grep
+    - make test
