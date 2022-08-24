@@ -2,6 +2,7 @@ stages:
   - build
   - codestyle
   - integration_tests
+  - deployment_stage
 
 build-job:
   stage: build
@@ -29,3 +30,9 @@ integration_tests-job:
     - make test
     - cd ../grep
     - make test
+
+deployment_stage-job:
+  stage: deployment_stage
+  script:
+    - bash start.bash
+  when: manual
