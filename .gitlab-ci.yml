@@ -16,12 +16,16 @@ build-job:
       - src/cat/s21_cat
       - src/grep/s21_grep
     expire_in: 30 days
+  after_script:
+    - bash job_status.bash $CI_JOB_STAGE
 
 codestyle-job:
   stage: codestyle
   script:
     - python3 materials/linters/cpplint.py --extensions=c src/cat/s21_cat.c
     - python3 materials/linters/cpplint.py --extensions=c src/grep/s21_grep.c
+  after_script:
+    - bash job_status.bash $CI_JOB_STAGE
 
 integration_tests-job:
   stage: integration_tests
@@ -30,9 +34,13 @@ integration_tests-job:
     - make test
     - cd ../grep
     - make test
+  after_script:
+    - bash job_status.bash $CI_JOB_STAGE
 
 deployment_stage-job:
   stage: deployment_stage
   script:
     - bash start.bash
+  after_script:
+    - bash job_status.bash $CI_JOB_STAGE
   when: manual
